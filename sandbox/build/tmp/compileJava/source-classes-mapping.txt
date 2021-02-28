@@ -1,2 +1,4 @@
-myFirstProgram.java
- myFirstProgram
+ru/stqa/pft/sandbox/Distance.java
+ ru.stqa.pft.sandbox.Distance
+ru/stqa/pft/sandbox/Point.java
+ ru.stqa.pft.sandbox.Point
