@@ -1,4 +1,4 @@
-package ru.stqa.pft.adressbook;
+package ru.stqa.pft.adressbook.tests;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,6 +6,7 @@ import org.testng.annotations.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import ru.stqa.pft.adressbook.model.UserData;
 
 public class UserCreationTests {
 
