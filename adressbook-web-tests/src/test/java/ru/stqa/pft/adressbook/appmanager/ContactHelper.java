@@ -31,22 +31,11 @@ public class ContactHelper extends HelperBase{
   }
 
   public void fillUserForm(UserData userData) {
-    wd.findElement(By.name("firstname")).click();
-    wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys(userData.getName());
-    wd.findElement(By.name("lastname")).click();
-    wd.findElement(By.name("lastname")).clear();
-    wd.findElement(By.name("lastname")).sendKeys(userData.getSurname());
-    wd.findElement(By.name("company")).click();
-    wd.findElement(By.name("company")).clear();
-    wd.findElement(By.name("company")).sendKeys(userData.getJob());
-    wd.findElement(By.name("theform")).click();
-    wd.findElement(By.name("home")).click();
-    wd.findElement(By.name("home")).clear();
-    wd.findElement(By.name("home")).sendKeys(userData.getPhone());
-    wd.findElement(By.name("email")).click();
-    wd.findElement(By.name("email")).clear();
-    wd.findElement(By.name("email")).sendKeys(userData.getEmail());
+    type1(By.name("firstname"), userData.getName());
+    type1(By.name("lastname"), userData.getSurname());
+    type1(By.name("company"), userData.getJob());
+    type1(By.name("home"), userData.getPhone());
+    type1(By.name("email"), userData.getEmail());
   }
 
   public void initUserCreation() {
@@ -55,5 +44,13 @@ public class ContactHelper extends HelperBase{
 
   public void returnToHomePage() {
     wd.findElement(By.linkText("home page")).click();
+  }
+
+  public void initUserModification() {
+    wd.findElement(By.xpath("(//img[@alt='Edit'])[2]")).click();
+  }
+
+  public void submitUserModification() {
+    wd.findElement(By.name("update")).click();
   }
 }

@@ -30,4 +30,10 @@ public class HelperBase {
     }
 
   }
+
+  protected void type1(By locator1, String text1) {
+    wd.findElement(locator1).click();
+    wd.findElement(locator1).clear();
+    wd.findElement(locator1).sendKeys(text1);
+  }
 }
