@@ -1,10 +1,11 @@
 package ru.stqa.pft.adressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.pft.adressbook.model.UserData;
 
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
 
   public ContactHelper(WebDriver wd) {
     super(wd);
@@ -47,10 +48,32 @@ public class ContactHelper extends HelperBase{
   }
 
   public void initUserModification() {
-    wd.findElement(By.xpath("(//img[@alt='Edit'])[2]")).click();
+    wd.findElement(By.xpath("(//img[@alt='Edit'])")).click();
   }
 
   public void submitUserModification() {
     wd.findElement(By.name("update")).click();
   }
+
+  public void createUser(UserData userData) {
+    initUserCreation();
+    fillUserForm(userData);
+    submitUserCreation();
+    returnToHomePage();
+
+  }
+
+  public boolean isThereAUser() {
+    return isElementPresent(By.name("selected[]"));
+  }
+
+  private boolean isElementPresent(By locator1) {
+    try {
+      wd.findElement(locator1);
+      return true;
+    } catch (NoSuchElementException ex) {
+      return false;
+    }
+  }
 }
+

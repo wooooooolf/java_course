@@ -3,12 +3,18 @@ package ru.stqa.pft.adressbook.tests;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.UserData;
 
-public class UserModificationTests extends TestBase{
+public class UserModificationTests extends TestBase {
 
   @Test
   public void testUserModification() {
+    if (!app.getContactHelper().isThereAUser()) {
+      app.getContactHelper().createUser(new UserData("Andrey", "Rublev", "Boring Company",
+              "222111333", "rublev@rublev.com"));
+    }
+    app.getNavigationHelper().goToHomePage();
     app.getContactHelper().initUserModification();
-    app.getContactHelper().fillUserForm(new UserData("Andrey Ivanovich", "Rublev", "Boring Company", "222111333", "rublev@rublev.com"));
+    app.getContactHelper().fillUserForm(new UserData("Andrey Ivanovich", "Rublev", "Boring Company",
+            "222111333", "rublev@rublev.com"));
     app.getContactHelper().submitUserModification();
     app.getContactHelper().returnToHomePage();
 
