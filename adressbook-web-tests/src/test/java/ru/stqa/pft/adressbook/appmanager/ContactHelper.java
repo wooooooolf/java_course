@@ -3,7 +3,11 @@ package ru.stqa.pft.adressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.stqa.pft.adressbook.model.UserData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -15,8 +19,8 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.xpath("//input[@value='Delete']")).click();
   }
 
-  public void selectUserPage() {
-    wd.findElement(By.name("selected[]")).click();
+  public void selectUserPage(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void addNewUser() {
@@ -47,8 +51,8 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.linkText("home page")).click();
   }
 
-  public void initUserModification() {
-    wd.findElement(By.xpath("(//img[@alt='Edit'])")).click();
+  public void initUserModification(int index) {
+    wd.findElements(By.xpath("(//img[@alt='Edit'])")).get(index).click();
   }
 
   public void submitUserModification() {
@@ -74,6 +78,21 @@ public class ContactHelper extends HelperBase {
     } catch (NoSuchElementException ex) {
       return false;
     }
+  }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<UserData> getContactList() {
+    List<UserData> users = new ArrayList<UserData>();
+    List<WebElement> elements = wd.findElements(By.xpath("(//img[@alt='Edit'])"));
+    for (WebElement element : elements) {
+      String name = element.getText();
+      UserData user = new UserData(name, null, null, null, null);
+      users.add(user);
+    }
+    return users;
   }
 }
 
