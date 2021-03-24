@@ -10,8 +10,7 @@ public class UserDeletionTests extends TestBase {
 
   @Test
   public void testUserDeletion() {
-
-
+    app.getNavigationHelper().goToHomePage();
     if (!app.getContactHelper().isThereAUser()) {
       app.getContactHelper().createUser(new UserData("Andrey", "Rublev", "Boring Company",
               "222111333", "rublev@rublev.com"));
@@ -24,5 +23,10 @@ public class UserDeletionTests extends TestBase {
     List<UserData> after = app.getContactHelper().getContactList();
 
     Assert.assertEquals(after.size(), before.size() - 1);
+
+    before.remove(before.size() - 1);
+    Assert.assertEquals(before, after);
+
+
   }
 }
