@@ -1,7 +1,7 @@
 package ru.stqa.pft.adressbook.model;
 
 public class GroupData {
-  private int id;
+  private int id = Integer.MAX_VALUE;
   private String name;
   private String header;
   private String footer;
@@ -57,12 +57,15 @@ public class GroupData {
 
     GroupData groupData = (GroupData) o;
 
+    if (id != groupData.id) return false;
     return name != null ? name.equals(groupData.name) : groupData.name == null;
   }
 
   @Override
   public int hashCode() {
-    return name != null ? name.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    return result;
   }
 
   public int getID() {

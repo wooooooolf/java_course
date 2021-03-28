@@ -5,9 +5,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.adressbook.model.UserData;
+import ru.stqa.pft.adressbook.model.Users;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -21,6 +24,10 @@ public class ContactHelper extends HelperBase {
 
   public void selectUserPage(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  public void selectUserPageById(int id) {
+    wd.findElement(By.cssSelector("input[value='"+ id +"']")).click();
   }
 
   public void addNewUser() {
@@ -51,8 +58,8 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.linkText("home page")).click();
   }
 
-  public void initUserModification(int index) {
-    wd.findElements(By.xpath("(//img[@alt='Edit'])")).get(index).click();
+  public void initUserModification() {
+    wd.findElement(By.xpath("(//img[@alt='Edit'])")).click();
   }
 
   public void submitUserModification() {
@@ -67,15 +74,21 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public void modify(int index, UserData user) {
-    initUserModification(index);
+  public void modify(UserData user) {
+    selectUserPageById(user.getId());
+    initUserModification();
     fillUserForm(user);
     submitUserModification();
     returnToHomePage();
   }
 
   public void delete(int index) {
-    selectUserPage(index);
+
+  }
+
+
+  public void delete(UserData user) {
+    selectUserPageById(user.getId());
     deleteUserPage();
     alertOk();
   }
@@ -111,5 +124,20 @@ public class ContactHelper extends HelperBase {
     return users;
 
   }
+
+  public Users all() {
+    Users users = new Users();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements) {
+      List<WebElement> items = element.findElements(By.tagName("td"));
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+      String name = items.get(2).getText();
+      String lastname = items.get(1).getText();
+      users.add(new UserData().withId(id).withName(name).withSurname(lastname));
+
+    }
+    return users;
+  }
+
 }
 

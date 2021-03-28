@@ -2,7 +2,6 @@ package ru.stqa.pft.adressbook.model;
 
 public class UserData {
   private int id = Integer.MAX_VALUE;
-  ;
   private String name;
   private String surname;
   private String job;
@@ -79,13 +78,15 @@ public class UserData {
 
     UserData userData = (UserData) o;
 
+    if (id != userData.id) return false;
     if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
     return surname != null ? surname.equals(userData.surname) : userData.surname == null;
   }
 
   @Override
   public int hashCode() {
-    int result = name != null ? name.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
     result = 31 * result + (surname != null ? surname.hashCode() : 0);
     return result;
   }

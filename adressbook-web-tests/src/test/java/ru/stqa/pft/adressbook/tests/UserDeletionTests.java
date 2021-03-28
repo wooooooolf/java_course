@@ -1,11 +1,13 @@
 package ru.stqa.pft.adressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.UserData;
+import ru.stqa.pft.adressbook.model.Users;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class UserDeletionTests extends TestBase {
 
@@ -21,16 +23,13 @@ public class UserDeletionTests extends TestBase {
   @Test
   public void testUserDeletion() {
 
-    List<UserData> before = app.contact().list();
-    int index = before.size() - 1;
-    app.contact().delete(index);
+    Users before = app.contact().all();
+    UserData deletedUser = before.iterator().next();
+    app.contact().delete(deletedUser);
     app.goTo().homePage();
-    List<UserData> after = app.contact().list();
-
-    Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(index);
-    Assert.assertEquals(before, after);
+    Users after = app.contact().all();
+    assertEquals(after.size(), before.size() - 1);
+    assertThat(after, equalTo(after.withOut(deletedUser)));
 
 
   }
