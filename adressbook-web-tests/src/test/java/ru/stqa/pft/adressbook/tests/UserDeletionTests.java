@@ -10,7 +10,7 @@ import java.util.List;
 public class UserDeletionTests extends TestBase {
 
   @BeforeMethod
-  public void ensurePreconditions(){
+  public void ensurePreconditions() {
     app.goTo().homePage();
     if (app.contact().list().size() == 0) {
       app.contact().create(new UserData().withName("Andrey").withSurname("Rublev").withJob("Boring Company")

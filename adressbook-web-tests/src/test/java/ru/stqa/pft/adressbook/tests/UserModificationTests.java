@@ -11,11 +11,11 @@ import java.util.List;
 public class UserModificationTests extends TestBase {
 
   @BeforeMethod
-  public void ensurePreconditions(){
+  public void ensurePreconditions() {
     app.goTo().homePage();
     if (app.contact().list().size() == 0) {
       app.contact().create(new UserData().withName("Andrey").withSurname("Rublev").withJob("Boring Company")
-                      .withPhone("222111333").withEmail("rublev@rublev.com"));
+              .withPhone("222111333").withEmail("rublev@rublev.com"));
     }
   }
 

@@ -2,9 +2,9 @@ package ru.stqa.pft.adressbook.model;
 
 public class GroupData {
   private int id;
-  private  String name;
-  private  String header;
-  private  String footer;
+  private String name;
+  private String header;
+  private String footer;
 
   public String getName() {
     return name;

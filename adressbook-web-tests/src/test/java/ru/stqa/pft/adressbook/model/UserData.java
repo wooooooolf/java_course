@@ -1,12 +1,13 @@
 package ru.stqa.pft.adressbook.model;
 
 public class UserData {
-  private int id = Integer.MAX_VALUE;;
-  private  String name;
-  private  String surname;
-  private  String job;
-  private  String phone;
-  private  String email;
+  private int id = Integer.MAX_VALUE;
+  ;
+  private String name;
+  private String surname;
+  private String job;
+  private String phone;
+  private String email;
 
   public int getId() {
     return id;
