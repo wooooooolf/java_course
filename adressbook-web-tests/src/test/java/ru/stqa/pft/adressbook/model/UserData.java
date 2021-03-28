@@ -1,38 +1,45 @@
 package ru.stqa.pft.adressbook.model;
 
 public class UserData {
-  private int id;
-  private final String name;
-  private final String surname;
-  private final String job;
-  private final String phone;
-  private final String email;
-
-  public UserData(int id, String name, String surname, String job, String phone, String email) {
-    this.id = id;
-    this.name = name;
-    this.surname = surname;
-    this.job = job;
-    this.phone = phone;
-    this.email = email;
-  }
-
-  public UserData(String name, String surname, String job, String phone, String email) {
-    this.id = Integer.MAX_VALUE;
-    this.name = name;
-    this.surname = surname;
-    this.job = job;
-    this.phone = phone;
-    this.email = email;
-  }
-
+  private int id = Integer.MAX_VALUE;;
+  private  String name;
+  private  String surname;
+  private  String job;
+  private  String phone;
+  private  String email;
 
   public int getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public UserData withId(int id) {
     this.id = id;
+    return this;
+  }
+
+  public UserData withName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public UserData withSurname(String surname) {
+    this.surname = surname;
+    return this;
+  }
+
+  public UserData withJob(String job) {
+    this.job = job;
+    return this;
+  }
+
+  public UserData withPhone(String phone) {
+    this.phone = phone;
+    return this;
+  }
+
+  public UserData withEmail(String email) {
+    this.email = email;
+    return this;
   }
 
   public String getName() {

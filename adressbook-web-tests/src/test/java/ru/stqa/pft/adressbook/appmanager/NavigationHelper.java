@@ -10,11 +10,11 @@ public class NavigationHelper extends HelperBase {
     super(wd);
   }
 
-  public void goToGroupPage() {
+  public void groupPage() {
     click(By.linkText("groups"));
   }
 
-  public void goToHomePage() {
+  public void homePage() {
     wd.get("http://localhost/addressbook/");
   }
 }

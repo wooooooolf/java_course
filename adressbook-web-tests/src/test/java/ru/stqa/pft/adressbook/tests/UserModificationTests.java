@@ -1,6 +1,7 @@
 package ru.stqa.pft.adressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.UserData;
 
@@ -9,24 +10,27 @@ import java.util.List;
 
 public class UserModificationTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions(){
+    app.goTo().homePage();
+    if (app.contact().list().size() == 0) {
+      app.contact().create(new UserData().withName("Andrey").withSurname("Rublev").withJob("Boring Company")
+                      .withPhone("222111333").withEmail("rublev@rublev.com"));
+    }
+  }
+
   @Test
   public void testUserModification() {
-    app.getNavigationHelper().goToHomePage();
-    if (!app.getContactHelper().isThereAUser()) {
-      app.getContactHelper().createUser(new UserData("Andrey", "Rublev", "Boring Company",
-              "222111333", "rublev@rublev.com"));
-    }
-    List<UserData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().initUserModification(before.size() - 1);
-    UserData user = new UserData(before.get(before.size() - 1).getId(), "Andrey Ivanovich", "Rublev", "Boring Company",
-            "222111333", "rublev@rublev.com");
-    app.getContactHelper().fillUserForm(user);
-    app.getContactHelper().submitUserModification();
-    app.getContactHelper().returnToHomePage();
-    List<UserData> after = app.getContactHelper().getContactList();
+
+    List<UserData> before = app.contact().list();
+    int index = before.size() - 1;
+    UserData user = new UserData().withId(before.get(index).getId()).withName("Andrey Ivanovich").withSurname("Rublev")
+            .withJob("Boring Company").withPhone("222111333").withEmail("rublev@rublev.com");
+    app.contact().modify(index, user);
+    List<UserData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(before.size() - 1);
+    before.remove(index);
     before.add(user);
     Comparator<? super UserData> byId = (u1, u2) -> Integer.compare(u1.getId(), u2.getId());
     before.sort(byId);
@@ -34,4 +38,6 @@ public class UserModificationTests extends TestBase {
     Assert.assertEquals(before, after);
 
   }
+
+
 }

@@ -59,12 +59,25 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.name("update")).click();
   }
 
-  public void createUser(UserData userData) {
+  public void create(UserData userData) {
     initUserCreation();
     fillUserForm(userData);
     submitUserCreation();
     returnToHomePage();
 
+  }
+
+  public void modify(int index, UserData user) {
+    initUserModification(index);
+    fillUserForm(user);
+    submitUserModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectUserPage(index);
+    deleteUserPage();
+    alertOk();
   }
 
   public boolean isThereAUser() {
@@ -84,7 +97,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<UserData> getContactList() {
+  public List<UserData> list() {
     List<UserData> users = new ArrayList<UserData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
@@ -92,8 +105,7 @@ public class ContactHelper extends HelperBase {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       String name = items.get(2).getText();
       String lastname = items.get(1).getText();
-      UserData user = new UserData(id, name, lastname, null, null, null);
-      users.add(user);
+      users.add(new UserData().withId(id).withName(name).withSurname(lastname));
 
     }
     return users;
