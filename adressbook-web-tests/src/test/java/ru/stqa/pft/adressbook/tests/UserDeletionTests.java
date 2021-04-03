@@ -1,5 +1,6 @@
 package ru.stqa.pft.adressbook.tests;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.UserData;
@@ -23,13 +24,16 @@ public class UserDeletionTests extends TestBase {
   @Test
   public void testUserDeletion() {
 
+    app.goTo().homePage();
     Users before = app.contact().all();
+    System.out.println(before);
     UserData deletedUser = before.iterator().next();
     app.contact().delete(deletedUser);
     app.goTo().homePage();
+    assertThat(app.contact().count(), equalTo(before.size()-1));
     Users after = app.contact().all();
-    assertEquals(after.size(), before.size() - 1);
-    assertThat(after, equalTo(after.withOut(deletedUser)));
+    System.out.println(after);
+    assertThat(after, equalTo(before.withOut(deletedUser)));
 
 
   }

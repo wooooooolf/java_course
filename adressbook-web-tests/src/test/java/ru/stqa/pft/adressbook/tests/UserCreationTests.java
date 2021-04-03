@@ -12,16 +12,14 @@ public class UserCreationTests extends TestBase {
 
   @Test
   public void testUserCreation() throws Exception {
+
     app.goTo().homePage();
     Users before = app.contact().all();
     UserData user = new UserData().withName("Andrey").withSurname("Rublev").withJob("Boring Company")
             .withPhone("222111333").withEmail("rublev@rublev.com");
     app.contact().create(user);
+    assertThat(app.contact().count(),equalTo(before.size() + 1));
     Users after = app.contact().all();
-    app.goTo().homePage();
-    assertThat(after.size(), equalTo(before.size() + 1));
-
-    user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt());
     assertThat(after, equalTo
             (before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }

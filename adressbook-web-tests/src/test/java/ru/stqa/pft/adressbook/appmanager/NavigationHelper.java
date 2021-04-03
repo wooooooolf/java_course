@@ -16,5 +16,8 @@ public class NavigationHelper extends HelperBase {
 
   public void homePage() {
     wd.get("http://localhost/addressbook/");
+
   }
+
+
 }
