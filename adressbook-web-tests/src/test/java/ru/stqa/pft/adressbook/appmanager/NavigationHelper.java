@@ -15,9 +15,11 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void homePage() {
-    wd.get("http://localhost/addressbook/");
+    if (isElementPresent(By.tagName("h1"))
+            &&  wd.findElement(By.tagName("h1")).getText().equals("home")) {
+      return;
+    }
 
+    click(By.linkText("home"));
   }
-
-
 }

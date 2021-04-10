@@ -60,14 +60,14 @@ public class GroupHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  private boolean isElementPresent(By locator1) {
-    try {
-      wd.findElement(locator1);
-      return true;
-    } catch (NoSuchElementException ex) {
-      return false;
-    }
-  }
+  //private boolean isElementPresent(By locator1) {
+  //  try {
+  //    wd.findElement(locator1);
+  //    return true;
+  //  } catch (NoSuchElementException ex) {
+  //    return false;
+  //  }
+  // }
 
   public void create(GroupData group) {
     initGroupCreation();
