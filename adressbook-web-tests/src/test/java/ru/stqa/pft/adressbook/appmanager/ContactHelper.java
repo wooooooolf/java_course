@@ -97,6 +97,7 @@ public class ContactHelper extends HelperBase {
     type1(By.name("company"), userData.getJob());
     type1(By.name("home"), userData.getPhone());
     type1(By.name("email"), userData.getEmail());
+    attach(By.name("photo"), userData.getPhoto());
   }
 
   public boolean isThereAUser() {
