@@ -1,14 +1,19 @@
 package ru.stqa.pft.adressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.stqa.pft.adressbook.model.GroupData;
 import ru.stqa.pft.adressbook.model.UserData;
 import ru.stqa.pft.adressbook.model.Users;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,18 +21,53 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class UserCreationTests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validUsers() {
+  public Iterator<Object[]> validUsers() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    list.add(new Object[]{new UserData().withName("Andrey").withSurname("Rublev").withPhone("21212121")
-            .withJob("Boring Company").withPhoto(new File("src/test/resources/12.jpg"))});
-    list.add(new Object[]{new UserData().withName("Andrey").withSurname("Rublev").withPhone("44444444")
-            .withJob("KroshkaKartoshka").withPhoto(new File("src/test/resources/13.jpg"))});
-    list.add(new Object[]{new UserData().withName("Andrey").withSurname("Rublev").withPhone("892888")
-            .withJob("Soyuzpechat").withPhoto(new File("src/test/resources/14.jpg"))});
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.csv")));
+    String line = reader.readLine();
+    while (line != null) {
+      String[] split = line.split(";");
+      list.add(new Object[] {new UserData().withName(split[0]).withSurname(split[1])
+              .withPhone(split[2]).withEmail(split[3]).withgroupName(split[4]).withPhoto(new File("src/test/resources/14.jpg"))});
+      line = reader.readLine();
+    }
     return list.iterator();
   }
 
-  @Test(dataProvider = "validUsers")
+  @DataProvider
+  public Iterator<Object[]> validUsersFromXml() throws IOException {
+
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.xml")));
+    String xml = "";
+    String line = reader.readLine();
+    while (line != null){
+      xml += line;
+      line = reader.readLine();
+    }
+    XStream xstream = new XStream();
+    xstream.processAnnotations(GroupData.class);
+    List<UserData> users = (List<UserData>) xstream.fromXML(xml);
+    return users.stream().map ((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+
+  }
+  @DataProvider
+  public Iterator<Object[]> validUsersFromJson() throws IOException {
+
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.json")));
+    String json = "";
+    String line = reader.readLine();
+    while (line != null){
+      json += line;
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<UserData> users = gson.fromJson(json,new TypeToken<List<UserData>>(){}.getType());
+    return users.stream().map ((u) -> new Object[] {u}).collect(Collectors.toList()).iterator();
+
+  }
+
+
+  @Test(dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user) {
 
     app.goTo().homePage();

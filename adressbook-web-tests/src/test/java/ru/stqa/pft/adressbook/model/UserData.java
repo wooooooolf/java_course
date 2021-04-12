@@ -1,15 +1,23 @@
 package ru.stqa.pft.adressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 
 public class UserData {
   private int id = Integer.MAX_VALUE;
+  @Expose
   private String name;
+  @Expose
   private String surname;
   private String job;
+  @Expose
   private String phone;
+  @Expose
   private String email;
-  private String group_name;
+  @Expose
+  private String groupName;
+  @Expose
   private String homePhone;
   private String mobilePhone;
   private String workPhone;
@@ -20,6 +28,15 @@ public class UserData {
   private String email3;
   private String editAddress;
   private String mainAddress;
+
+  public String getgroupName() {
+    return groupName;
+  }
+
+  public UserData withgroupName(String group_name) {
+    this.groupName = groupName;
+    return this;
+  }
 
   public File getPhoto() {
     return photo;
