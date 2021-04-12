@@ -42,7 +42,7 @@ public class UserDataGenerator {
   private static void save(List<UserData> users, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for (UserData user : users) {
-      writer.write(String.format("%s;%s,%s\n", user.getName(), user.getSurname(), user.getHomePhone()));
+      writer.write(String.format("%s;%s;%s\n", user.getName(), user.getSurname(), user.getHomePhone()));
     }
     writer.close();
   }
