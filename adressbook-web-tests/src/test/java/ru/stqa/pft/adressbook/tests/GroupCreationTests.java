@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupCreationTests extends TestBase {
 
   @DataProvider
-  public Iterator<Object[]> validGroups(){
+  public Iterator<Object[]> validGroups() {
     List<Object[]> list = new ArrayList<Object[]>();
     list.add(new Object[]{new GroupData().withName("group").withHeader("header").withFooter("footer")});
     list.add(new Object[]{new GroupData().withName("group1").withHeader("header1").withFooter("footer1")});
@@ -23,7 +23,7 @@ public class GroupCreationTests extends TestBase {
     return list.iterator();
   }
 
-  @Test (dataProvider = "validGroups")
+  @Test(dataProvider = "validGroups")
   public void testGroupCreation(GroupData group) {
 
     app.goTo().groupPage();
