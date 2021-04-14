@@ -1,6 +1,8 @@
 package ru.stqa.pft.adressbook.tests;
 
 import com.thoughtworks.xstream.XStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.GroupData;
@@ -16,6 +18,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
+
+  Logger logger = LoggerFactory.getLogger(GroupCreationTests.class);
 
   @DataProvider
   public Iterator<Object[]> validGroups() throws IOException {
@@ -36,7 +40,7 @@ public class GroupCreationTests extends TestBase {
 
   @Test(dataProvider = "validGroups")
   public void testGroupCreation(GroupData group) {
-
+    logger.info("Start test testGroupCreation");
     app.goTo().groupPage();
     Groups before = app.group().all();
     app.group().create(group);
@@ -44,5 +48,6 @@ public class GroupCreationTests extends TestBase {
     assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo
             (before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    logger.info("Stop test testGroupCreation");
   }
 }
