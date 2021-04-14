@@ -13,6 +13,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.1'
     implementation 'ch.qos.logback:logback-classic:1.1.5'
     implementation 'mysql:mysql-connector-java:8.0.23'
+    implementation 'org.hibernate:hibernate-core:5.4.30.Final'
 }
 
 task testGroups (type : Test) {
