@@ -36,10 +36,10 @@ public class UserPhoneTests extends TestBase {
               .withName("Andrey")
               .withSurname("Rublev")
               .withJob("Boring Company")
-              .withPhone("222111333")
+              /*.withPhone("222111333")*/
               .withMobilePhone("2213133")
               .withWorkPhone("444333")
-              .withEmail1("rublev@rublev.com")
+              //.withEmail1("rublev@rublev.com")
               .withEmail2("andrey@rublev.com")
               .withEmail3("rublev@andrey.com")
               .withMainAddress("Perm")
@@ -60,14 +60,14 @@ public class UserPhoneTests extends TestBase {
   }
 
   private String mergePhones(UserData contact) {
-    return Arrays.asList(contact.getPhone(), contact.getMobilePhone(), contact.getWorkPhone())
+    return Arrays.asList(/*contact.getPhone(),*/ contact.getMobilePhone(), contact.getWorkPhone())
             .stream().filter(s -> !s.equals(""))
             .map(UserPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
 
   public String mergeEmails(UserData contact) {
-    return Arrays.asList(contact.getEmail1(), contact.getEmail2(), contact.getEmail3())
+    return Arrays.asList(/*contact.getEmail1(),*/ contact.getEmail2(), contact.getEmail3())
             .stream().filter(s -> !s.equals(""))
             .map(UserPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));

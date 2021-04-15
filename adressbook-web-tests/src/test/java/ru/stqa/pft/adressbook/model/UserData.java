@@ -4,54 +4,66 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("user")
 @Entity
-@Table (name = "addressbook")
+@Table(name = "addressbook")
 public class UserData {
   @XStreamOmitField
   @Id
-  @Column (name = "id")
+  @Column(name = "id")
   private int id = Integer.MAX_VALUE;
   @Expose
-  @Column (name = "firstname")
+  @Column(name = "firstname")
   private String name;
   @Expose
-  @Column (name = "lastname")
+  @Column(name = "lastname")
   private String surname;
+  @Expose
+  @Column(name = "company")
   private String job;
+  /*@Expose
+  private String phone;*/
   @Expose
-  private String phone;
-  @Expose
-  @Column (name = "email")
+  @Column(name = "email")
   @Type(type = "text")
   private String email;
   @Expose
+  @Transient
   private String groupName;
   @Expose
-  @Column (name = "home")
+  @Column(name = "home")
   @Type(type = "text")
   private String homePhone;
   @Expose
-  @Column (name = "mobile")
+  @Column(name = "mobile")
   @Type(type = "text")
   private String mobilePhone;
-  @Column (name = "work")
+  @Column(name = "work")
   @Type(type = "text")
   private String workPhone;
+  @Transient
   private String allPhones;
+  @Transient
   private String allEmails;
-  private String email1;
+
+  @Expose
+  @Column(name = "email2")
+  @Type(type = "text")
   private String email2;
+  @Expose
+  @Column(name = "email3")
+  @Type(type = "text")
   private String email3;
+  @Transient
   private String editAddress;
+  @Column(name = "address")
+  @Type(type = "text")
   private String mainAddress;
-  @Column (name = "photo")
+  @Column(name = "photo")
   @Type(type = "text")
   private String photo;
 
@@ -65,7 +77,11 @@ public class UserData {
   }
 
   public File getPhoto() {
-    return new File(photo);
+    if (photo == null) {
+      return null;
+    } else {
+      return new File(photo);
+    }
   }
 
   public UserData withPhoto(File photo) {
@@ -93,14 +109,14 @@ public class UserData {
     return this;
   }
 
-  public String getEmail1() {
+  /*public String getEmail1() {
     return email1;
   }
 
   public UserData withEmail1(String email1) {
     this.email1 = email1;
     return this;
-  }
+  }*/
 
   public String getEmail2() {
     return email2;
@@ -190,10 +206,10 @@ public class UserData {
     return this;
   }
 
-  public UserData withPhone(String phone) {
+  /*public UserData withPhone(String phone) {
     this.phone = phone;
     return this;
-  }
+  }*/
 
   public UserData withEmail(String email) {
     this.email = email;
@@ -212,8 +228,26 @@ public class UserData {
     return job;
   }
 
-  public String getPhone() {
+  /*public String getPhone() {
     return phone;
+  }*/
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    UserData userData = (UserData) o;
+
+    if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
+    return surname != null ? surname.equals(userData.surname) : userData.surname == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = name != null ? name.hashCode() : 0;
+    result = 31 * result + (surname != null ? surname.hashCode() : 0);
+    return result;
   }
 
   public String getEmail() {
@@ -229,23 +263,4 @@ public class UserData {
             '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    UserData userData = (UserData) o;
-
-    if (id != userData.id) return false;
-    if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
-    return surname != null ? surname.equals(userData.surname) : userData.surname == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id;
-    result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + (surname != null ? surname.hashCode() : 0);
-    return result;
-  }
 }

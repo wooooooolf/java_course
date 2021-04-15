@@ -95,7 +95,7 @@ public class ContactHelper extends HelperBase {
     type1(By.name("firstname"), userData.getName());
     type1(By.name("lastname"), userData.getSurname());
     type1(By.name("company"), userData.getJob());
-    type1(By.name("home"), userData.getPhone());
+    type1(By.name("mobile"), userData.getMobilePhone());
     type1(By.name("email"), userData.getEmail());
     attach(By.name("photo"), userData.getPhoto());
   }
@@ -188,10 +188,10 @@ public class ContactHelper extends HelperBase {
             .withId(user.getId())
             .withName(firstname)
             .withSurname(lastname)
-            .withPhone(home)
+            /*.withPhone(home)*/
             .withMobilePhone(mobile)
             .withWorkPhone(work)
-            .withEmail1(email1)
+            //.withEmail1(email1)
             .withEmail2(email2)
             .withEmail3(email3)
             .withEditAddress(editAddress);

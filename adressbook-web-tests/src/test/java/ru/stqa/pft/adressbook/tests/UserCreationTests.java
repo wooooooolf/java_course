@@ -28,7 +28,7 @@ public class UserCreationTests extends TestBase {
     while (line != null) {
       String[] split = line.split(";");
       list.add(new Object[] {new UserData().withName(split[0]).withSurname(split[1])
-              .withPhone(split[2]).withEmail(split[3]).withgroupName(split[4]).withPhoto(new File("src/test/resources/14.jpg"))});
+              /*.withPhone(split[2])*/.withEmail(split[3]).withgroupName(split[4]).withPhoto(new File("src/test/resources/14.jpg"))});
       line = reader.readLine();
     }
     return list.iterator();
@@ -71,11 +71,11 @@ public class UserCreationTests extends TestBase {
   public void testUserCreation(UserData user) {
 
     app.goTo().homePage();
-    Users before = app.contact().all();
+    Users before = app.db().users();
     //File photo = new File("src/test/resources/12.jpg");
     app.contact().create(user);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Users after = app.contact().all();
+    Users after = app.db().users();
     assertThat(after, equalTo
             (before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
   }
