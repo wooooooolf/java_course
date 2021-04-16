@@ -76,7 +76,11 @@ public class UserDataGenerator {
     Writer writer = new FileWriter(file);
     for (UserData user : users) {
       writer.write(String.format("%s;%s;%s;%s;%s\n", user.getName(),
-              user.getSurname(), user.getHomePhone(), user.getEmail(), user.getgroupName(), user.getPhoto()));
+              user.getSurname(),
+              user.getHomePhone(),
+              user.getEmail(),
+              /*user.getGroups(),*/
+              user.getPhoto()));
     }
     writer.close();
   }
@@ -90,7 +94,7 @@ public class UserDataGenerator {
               .withSurname(String.format("Rublev %s", i))
               .withHomePhone(String.format("8988 %s", i))
               .withEmail(String.format("rublev@rublev.ru %s", i))
-              .withgroupName(String.format("group %s", i))
+              /*.withgroupName(String.format("group %s", i))*/
               .withPhoto(new File("src/test/resources/14.jpg"))
       );
     }

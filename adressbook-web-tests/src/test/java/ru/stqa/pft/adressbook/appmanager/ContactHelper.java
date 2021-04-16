@@ -3,6 +3,9 @@ package ru.stqa.pft.adressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import ru.stqa.pft.adressbook.model.GroupData;
 import ru.stqa.pft.adressbook.model.UserData;
 import ru.stqa.pft.adressbook.model.Users;
 
@@ -43,10 +46,7 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
 
-
-  public void initUserCreation() {
-    wd.findElement(By.linkText("add new")).click();
-  }
+  public void initUserCreation() { wd.findElement(By.linkText("add new")).click(); }
 
   public void returnToHomePage() {
     wd.findElement(By.linkText("home page")).click();
@@ -63,10 +63,38 @@ public class ContactHelper extends HelperBase {
   private void initUserModificationById(int id) {
     wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
+  public void selectUserCheckboxById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+  public void selectGroupFromList (int groupId) {
+    new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(groupId));
+  }
+  public void selectGroupFromListToAdd (int groupId) {
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(groupId));
+  }
+  public void addToGroupButton() {
+    wd.findElement(By.name("add")).click();
+  }
 
-  public void create(UserData userData) {
+  public void goToGroupPageAfter() {
+    wd.findElement(By.partialLinkText("group page")).click();
+    /*wd.findElement(By.cssSelector(String.format("a[href='./?group=%s']", id))).click();*/
+  }
+
+
+  public void addUserToGroup(UserData userData, GroupData groupData) {
+
+    selectUserCheckboxById(userData.getId());
+    selectGroupFromListToAdd(groupData.getId());
+    addToGroupButton();
+    goToGroupPageAfter();
+    userCache = null;
+
+  }
+
+  public void create(UserData user) {
     initUserCreation();
-    fillUserForm(userData);
+    fillUserForm(user,true);
     submitUserCreation();
     userCache = null;
     returnToHomePage();
@@ -76,7 +104,7 @@ public class ContactHelper extends HelperBase {
   public void modify(UserData user) {
     selectUserPageById(user.getId());
     initUserModificationById(user.getId());
-    fillUserForm(user);
+    fillUserForm(user, false);
     submitUserModification();
     userCache = null;
     returnToHomePage();
@@ -91,13 +119,22 @@ public class ContactHelper extends HelperBase {
     userCache = null;
   }
 
-  public void fillUserForm(UserData userData) {
+  public void fillUserForm(UserData userData, boolean creation) {
     type1(By.name("firstname"), userData.getName());
     type1(By.name("lastname"), userData.getSurname());
     type1(By.name("company"), userData.getJob());
     type1(By.name("mobile"), userData.getMobilePhone());
     type1(By.name("email"), userData.getEmail());
     attach(By.name("photo"), userData.getPhoto());
+
+    if (creation) {
+      if (userData.getGroups().size() > 0) {
+        Assert.assertTrue(userData.getGroups().size() == 1);
+      }
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroups().iterator().next().getName());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public boolean isThereAUser() {

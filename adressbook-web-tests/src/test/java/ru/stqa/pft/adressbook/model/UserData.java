@@ -7,46 +7,60 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
-@XStreamAlias("user")
-@Entity
-@Table(name = "addressbook")
-public class UserData {
+  @XStreamAlias("user")
+  @Entity
+  @Table(name = "addressbook")
+  public class UserData {
+
   @XStreamOmitField
   @Id
   @Column(name = "id")
   private int id = Integer.MAX_VALUE;
+
   @Expose
   @Column(name = "firstname")
   private String name;
+
   @Expose
   @Column(name = "lastname")
   private String surname;
+
   @Expose
   @Column(name = "company")
   private String job;
+
   /*@Expose
   private String phone;*/
+
   @Expose
   @Column(name = "email")
   @Type(type = "text")
   private String email;
-  @Expose
+
+  /*@Expose
   @Transient
-  private String groupName;
+  private String groupName;*/
+
   @Expose
   @Column(name = "home")
   @Type(type = "text")
   private String homePhone;
+
   @Expose
   @Column(name = "mobile")
   @Type(type = "text")
   private String mobilePhone;
+
   @Column(name = "work")
   @Type(type = "text")
   private String workPhone;
+
   @Transient
   private String allPhones;
+
   @Transient
   private String allEmails;
 
@@ -54,27 +68,22 @@ public class UserData {
   @Column(name = "email2")
   @Type(type = "text")
   private String email2;
+
   @Expose
   @Column(name = "email3")
   @Type(type = "text")
   private String email3;
+
   @Transient
   private String editAddress;
+
   @Column(name = "address")
   @Type(type = "text")
   private String mainAddress;
+
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
-
-  public String getgroupName() {
-    return groupName;
-  }
-
-  public UserData withgroupName(String group_name) {
-    this.groupName = groupName;
-    return this;
-  }
 
   public File getPhoto() {
     if (photo == null) {
@@ -88,6 +97,23 @@ public class UserData {
     this.photo = photo.getPath();
     return this;
   }
+
+
+  @ManyToMany (fetch = FetchType.EAGER)
+  @JoinTable (name = "address_in_groups",
+          joinColumns = @JoinColumn (name = "id"), inverseJoinColumns = @JoinColumn (name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
+
+  /*public String getgroupName() {
+    return groupName;
+  }
+
+  public UserData withgroupName(String group_name) {
+    this.groupName = groupName;
+    return this;
+  }*/
+
+
 
 
   public String getMainAddress() {
@@ -181,8 +207,7 @@ public class UserData {
     return this;
   }
 
-
-  public int getId() {
+    public int getId() {
     return id;
   }
 
@@ -196,19 +221,32 @@ public class UserData {
     return this;
   }
 
+    public String getName() {
+      return name;
+    }
+
   public UserData withSurname(String surname) {
     this.surname = surname;
     return this;
   }
+    public String getSurname() {
+      return surname;
+    }
 
   public UserData withJob(String job) {
     this.job = job;
     return this;
   }
+    public String getJob() {
+      return job;
+    }
 
   /*public UserData withPhone(String phone) {
     this.phone = phone;
     return this;
+  }*/
+      /*public String getPhone() {
+    return phone;
   }*/
 
   public UserData withEmail(String email) {
@@ -216,45 +254,20 @@ public class UserData {
     return this;
   }
 
-  public String getName() {
-    return name;
+    public String getEmail() {
+      return email;
+    }
+
+  public UserData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
+    public Groups getGroups() {
+      return new Groups(groups);
+    }
 
-  public String getSurname() {
-    return surname;
-  }
 
-  public String getJob() {
-    return job;
-  }
-
-  /*public String getPhone() {
-    return phone;
-  }*/
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    UserData userData = (UserData) o;
-
-    if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
-    return surname != null ? surname.equals(userData.surname) : userData.surname == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = name != null ? name.hashCode() : 0;
-    result = 31 * result + (surname != null ? surname.hashCode() : 0);
-    return result;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  @Override
+    @Override
   public String toString() {
     return "UserData{" +
             "id='" + id + '\'' +
@@ -262,5 +275,26 @@ public class UserData {
             ", surname='" + surname + '\'' +
             '}';
   }
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      UserData userData = (UserData) o;
+
+      if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
+      if (surname != null ? !surname.equals(userData.surname) : userData.surname != null) return false;
+      if (email != null ? !email.equals(userData.email) : userData.email != null) return false;
+      return mobilePhone != null ? mobilePhone.equals(userData.mobilePhone) : userData.mobilePhone == null;
+    }
+
+    @Override
+    public int hashCode() {
+      int result = name != null ? name.hashCode() : 0;
+      result = 31 * result + (surname != null ? surname.hashCode() : 0);
+      result = 31 * result + (email != null ? email.hashCode() : 0);
+      result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
+      return result;
+    }
 
 }
