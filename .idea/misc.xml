@@ -3,6 +3,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/adressbook-web-tests" />
+    <file type="web" url="file://$PROJECT_DIR$/mantis-tests" />
     <file type="web" url="file://$PROJECT_DIR$/sandbox" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
