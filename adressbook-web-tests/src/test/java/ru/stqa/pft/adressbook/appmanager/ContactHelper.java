@@ -83,7 +83,25 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.partialLinkText("group page")).click();
     /*wd.findElement(By.cssSelector(String.format("a[href='./?group=%s']", id))).click();*/
   }
+  private void removeFromGroup() {
+    wd.findElement(By.name("remove")).click();
+  }
 
+  public void addUserToGroup(UserData userData, GroupData groupData) {
+    selectUserPageById(userData.getId());
+    selectGroupFromListToAdd(groupData.getID());
+    addToGroupButton();
+    goToGroupPageAfter();
+    userCache = null;
+
+  }
+
+  public void removeUserFromGroup(UserData user, GroupData groupData) {
+    selectUserCheckboxById(user.getId());
+    removeFromGroup();
+    goToGroupPageAfter();
+    userCache = null;
+  }
 
   public void create(UserData user) {
     initUserCreation();
@@ -236,14 +254,6 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public void addUserToGroup(UserData userData, GroupData groupData) {
-    selectUserPageById(userData.getId());
-    selectGroupFromListToAdd(groupData.getID());
-    addToGroupButton();
-    goToGroupPageAfter();
-    userCache = null;
-
-  }
 }
 
 
