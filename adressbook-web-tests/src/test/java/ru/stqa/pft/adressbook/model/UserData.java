@@ -262,19 +262,11 @@ import java.util.Set;
     groups.add(group);
     return this;
   }
+
     public Groups getGroups() {
       return new Groups(groups);
     }
 
-
-    @Override
-  public String toString() {
-    return "UserData{" +
-            "id='" + id + '\'' +
-            ", name='" + name + '\'' +
-            ", surname='" + surname + '\'' +
-            '}';
-  }
     @Override
     public boolean equals(Object o) {
       if (this == o) return true;
@@ -284,17 +276,32 @@ import java.util.Set;
 
       if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
       if (surname != null ? !surname.equals(userData.surname) : userData.surname != null) return false;
+      if (job != null ? !job.equals(userData.job) : userData.job != null) return false;
       if (email != null ? !email.equals(userData.email) : userData.email != null) return false;
-      return mobilePhone != null ? mobilePhone.equals(userData.mobilePhone) : userData.mobilePhone == null;
+      if (mobilePhone != null ? !mobilePhone.equals(userData.mobilePhone) : userData.mobilePhone != null) return false;
+      if (photo != null ? !photo.equals(userData.photo) : userData.photo != null) return false;
+      return groups != null ? groups.equals(userData.groups) : userData.groups == null;
     }
 
     @Override
     public int hashCode() {
       int result = name != null ? name.hashCode() : 0;
       result = 31 * result + (surname != null ? surname.hashCode() : 0);
+      result = 31 * result + (job != null ? job.hashCode() : 0);
       result = 31 * result + (email != null ? email.hashCode() : 0);
       result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
+      result = 31 * result + (photo != null ? photo.hashCode() : 0);
+      result = 31 * result + (groups != null ? groups.hashCode() : 0);
       return result;
     }
 
-}
+    @Override
+  public String toString() {
+    return "UserData{" +
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", surname='" + surname + '\'' +
+            '}';
+  }
+
+  }

@@ -80,7 +80,7 @@ public class UserCreationTests extends TestBase {
   }
 
 
-  /*@Test(dataProvider = "validUsersFromJson")
+  @Test(dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user) {
 
     Groups groups = app.db().groups();
@@ -98,9 +98,9 @@ public class UserCreationTests extends TestBase {
     assertThat(after, equalTo
             (before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
     verifyUserListInUI();
-  }*/
+  }
 
-  @Test (dataProvider = "validUsersFromJson")
+  /*@Test (dataProvider = "validUsersFromJson")
   public void testUserCreation(UserData user) throws Exception {
 
     Groups groups = app.db().groups();
@@ -114,6 +114,6 @@ public class UserCreationTests extends TestBase {
             before.withAdded(user.withId(after.stream().mapToInt((u) -> u.getId()).max().getAsInt()))));
     verifyUserListInUI();
 
-  }
+  }*/
 
 }

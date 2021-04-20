@@ -6,11 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.adressbook.model.GroupData;
+import ru.stqa.pft.adressbook.model.Groups;
 import ru.stqa.pft.adressbook.model.UserData;
 import ru.stqa.pft.adressbook.model.Users;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class ContactHelper extends HelperBase {
 
@@ -82,16 +85,6 @@ public class ContactHelper extends HelperBase {
   }
 
 
-  public void addUserToGroup(UserData userData, GroupData groupData) {
-
-    selectUserCheckboxById(userData.getId());
-    selectGroupFromListToAdd(groupData.getId());
-    addToGroupButton();
-    goToGroupPageAfter();
-    userCache = null;
-
-  }
-
   public void create(UserData user) {
     initUserCreation();
     fillUserForm(user,true);
@@ -109,7 +102,6 @@ public class ContactHelper extends HelperBase {
     userCache = null;
     returnToHomePage();
   }
-
 
   public void delete(UserData user) {
     selectUserPageById(user.getId());
@@ -131,7 +123,7 @@ public class ContactHelper extends HelperBase {
       if (userData.getGroups().size() > 0) {
         Assert.assertTrue(userData.getGroups().size() == 1);
       }
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroups().iterator().next().getName());
+      new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();/*selectByVisibleText(userData.getGroups().iterator().next().getName()*/;
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -153,6 +145,7 @@ public class ContactHelper extends HelperBase {
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
+
 
   public List<UserData> list() {
     List<UserData> users = new ArrayList<UserData>();
@@ -232,6 +225,23 @@ public class ContactHelper extends HelperBase {
             .withEmail2(email2)
             .withEmail3(email3)
             .withEditAddress(editAddress);
+
+  }
+  public void selectGroup(Users userData) {
+    if (userData.iterator().next().getGroups().size() > 1) {
+      Assert.assertTrue(userData.iterator().next().getGroups().size() == 1);
+      new Select(wd.findElement(By.name("group"))).selectByVisibleText(userData.iterator().next().getGroups().iterator().next().getName());
+    }
+
+
+  }
+
+  public void addUserToGroup(UserData userData, GroupData groupData) {
+    selectUserPageById(userData.getId());
+    selectGroupFromListToAdd(groupData.getID());
+    addToGroupButton();
+    goToGroupPageAfter();
+    userCache = null;
 
   }
 }

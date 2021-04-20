@@ -20,27 +20,36 @@ public class DbHelper {
     final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure() // configures settings from hibernate.cfg.xml
             .build();
-      sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+    sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
-    }
+  }
 
-    public Groups groups() {
-      Session session = sessionFactory.openSession();
-      session.beginTransaction();
-      List<GroupData> result = session.createQuery( "from GroupData" ).list();
-      session.getTransaction().commit();
-      session.close();
-      return new Groups(result);
-    }
-
-  public Users users () {
+  public Groups groups() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<UserData> result = session.createQuery( "from UserData where deprecated = '0000-00-00'" ).list();
+    List<GroupData> result = session.createQuery("from GroupData").list();
+    session.getTransaction().commit();
+    session.close();
+    return new Groups(result);
+  }
+
+  public Users users() {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<UserData> result = session.createQuery("from UserData where deprecated = '0000-00-00'").list();
     session.getTransaction().commit();
     session.close();
     return new Users(result);
   }
 
+  public UserData selectUserById(int userId) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    UserData user = (UserData) session.createQuery( "from UserData where id="+userId ).getSingleResult();
+    session.getTransaction().commit();
+    session.close();
+    return user;
   }
+}
+
 

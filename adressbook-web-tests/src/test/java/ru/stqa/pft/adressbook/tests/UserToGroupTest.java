@@ -1,6 +1,7 @@
 package ru.stqa.pft.adressbook.tests;
 
 import org.hamcrest.CoreMatchers;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.GroupData;
@@ -16,20 +17,20 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.stqa.pft.adressbook.tests.TestBase.app;
 
-public class UserToGroupTest extends TestBase{
+public class UserToGroupTest extends TestBase {
 
   @BeforeMethod
 
   public void ensurePreconditions() {
 
-
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test1"));
+      app.group().create(new GroupData()
+              .withName("test1")
+              .withFooter("2341"));
     }
 
-    app.goTo().homePage();
-
+    /*app.goTo().homePage();*/
     if (app.db().users().size() == 0) {
       app.contact().create(new UserData()
               .withName("Andrey")
@@ -37,12 +38,19 @@ public class UserToGroupTest extends TestBase{
               .withMobilePhone("89288")
               .withEmail("andrey@rublev.com")
               .withJob("Boring Company")
-              .withPhoto(new File("src/test/resources/14.jpg"))
-      );
-
-
+              .withPhoto(new File("src/test/resources/14.jpg")));
+      app.goTo().homePage();
     }
+
+      /*Users users = app.db().users();
+      if (users.stream().iterator().next().getGroups().size() == 0){
+        app.contact().selectUserPageById(users.iterator().next().getId());
+        app.contact().selectGroup(users);
+        app.contact().addToGroupButton();
+        app.goTo().goToGroupPageAfter();
+      }*/
   }
+
 
   @Test
 
@@ -91,4 +99,5 @@ public class UserToGroupTest extends TestBase{
     return allUsers.iterator().next();
   }
 }
+
 
