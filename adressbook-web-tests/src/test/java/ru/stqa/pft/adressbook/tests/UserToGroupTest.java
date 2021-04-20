@@ -1,7 +1,5 @@
 package ru.stqa.pft.adressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.GroupData;
@@ -15,7 +13,6 @@ import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.stqa.pft.adressbook.tests.TestBase.app;
 
 public class UserToGroupTest extends TestBase {
 

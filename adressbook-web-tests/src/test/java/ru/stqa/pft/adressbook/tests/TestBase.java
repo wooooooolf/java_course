@@ -1,8 +1,5 @@
 package ru.stqa.pft.adressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,32 +23,31 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TestBase {
 
   Logger logger = LoggerFactory.getLogger(TestBase.class);
-    protected static ApplicationManager app =
-            new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
+  protected static ApplicationManager app =
+          new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
   //public WebDriver wd;
 
   @BeforeSuite
-    public void setUp() throws Exception {
-      app.init();
-    }
+  public void setUp() throws Exception {
+    app.init();
+  }
 
 
+  @AfterSuite(alwaysRun = true)
+  public void tearDown() throws Exception {
+    app.stop();
+  }
 
-    @AfterSuite (alwaysRun = true)
-    public void tearDown() throws Exception {
-      app.stop();
-    }
-
-    @BeforeMethod
+  @BeforeMethod
   public void logTestStart(Method m, Object[] p) {
-      logger.info("Start test" + m.getName() + "with parameters" + Arrays.asList(p));
-    }
+    logger.info("Start test" + m.getName() + "with parameters" + Arrays.asList(p));
+  }
 
-    @AfterMethod (alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
   public void logTestStop(Method m) {
-      logger.info("Stop test"+ m.getName());
-    }
+    logger.info("Stop test" + m.getName());
+  }
 
   public void verifyGroupListInUI() {
 
@@ -63,21 +59,22 @@ public class TestBase {
               .collect(Collectors.toSet())));
     }
   }
-    public void verifyUserListInUI() {
-      if (Boolean.getBoolean("verifyUI")) {
 
-        Users dbUsers = app.db().users();
-        Users uiUsers = app.contact().all();
-        assertThat(uiUsers, equalTo(dbUsers.stream().map((u) -> new UserData()
-                .withId(u.getId())
-                .withName(u.getName())
-                .withSurname(u.getSurname()))
-                .collect(Collectors.toSet())));
+  public void verifyUserListInUI() {
+    if (Boolean.getBoolean("verifyUI")) {
 
-      }
+      Users dbUsers = app.db().users();
+      Users uiUsers = app.contact().all();
+      assertThat(uiUsers, equalTo(dbUsers.stream().map((u) -> new UserData()
+              .withId(u.getId())
+              .withName(u.getName())
+              .withSurname(u.getSurname()))
+              .collect(Collectors.toSet())));
+
     }
-
-
   }
+
+
+}
 
 

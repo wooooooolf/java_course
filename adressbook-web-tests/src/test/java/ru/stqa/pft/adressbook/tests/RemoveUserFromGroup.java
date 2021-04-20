@@ -65,7 +65,7 @@ public class RemoveUserFromGroup extends TestBase {
   private GroupData selectGroup(UserData removeUser) {
 
     UserData user = selectUserById(removeUser);
-    Groups userToBeRemoved =  user.getGroups();
+    Groups userToBeRemoved = user.getGroups();
     return userToBeRemoved.iterator().next();
 
   }
