@@ -10,10 +10,10 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-  @XStreamAlias("user")
-  @Entity
-  @Table(name = "addressbook")
-  public class UserData {
+@XStreamAlias("user")
+@Entity
+@Table(name = "addressbook")
+public class UserData {
 
   @XStreamOmitField
   @Id
@@ -99,9 +99,9 @@ import java.util.Set;
   }
 
 
-  @ManyToMany (fetch = FetchType.EAGER)
-  @JoinTable (name = "address_in_groups",
-          joinColumns = @JoinColumn (name = "id"), inverseJoinColumns = @JoinColumn (name = "group_id"))
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
   private Set<GroupData> groups = new HashSet<GroupData>();
 
   /*public String getgroupName() {
@@ -112,8 +112,6 @@ import java.util.Set;
     this.groupName = groupName;
     return this;
   }*/
-
-
 
 
   public String getMainAddress() {
@@ -207,7 +205,7 @@ import java.util.Set;
     return this;
   }
 
-    public int getId() {
+  public int getId() {
     return id;
   }
 
@@ -221,25 +219,27 @@ import java.util.Set;
     return this;
   }
 
-    public String getName() {
-      return name;
-    }
+  public String getName() {
+    return name;
+  }
 
   public UserData withSurname(String surname) {
     this.surname = surname;
     return this;
   }
-    public String getSurname() {
-      return surname;
-    }
+
+  public String getSurname() {
+    return surname;
+  }
 
   public UserData withJob(String job) {
     this.job = job;
     return this;
   }
-    public String getJob() {
-      return job;
-    }
+
+  public String getJob() {
+    return job;
+  }
 
   /*public UserData withPhone(String phone) {
     this.phone = phone;
@@ -254,48 +254,48 @@ import java.util.Set;
     return this;
   }
 
-    public String getEmail() {
-      return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
   public UserData inGroup(GroupData group) {
     groups.add(group);
     return this;
   }
 
-    public Groups getGroups() {
-      return new Groups(groups);
-    }
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
 
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-      UserData userData = (UserData) o;
+    UserData userData = (UserData) o;
 
-      if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
-      if (surname != null ? !surname.equals(userData.surname) : userData.surname != null) return false;
-      if (job != null ? !job.equals(userData.job) : userData.job != null) return false;
-      if (email != null ? !email.equals(userData.email) : userData.email != null) return false;
-      if (mobilePhone != null ? !mobilePhone.equals(userData.mobilePhone) : userData.mobilePhone != null) return false;
-      if (photo != null ? !photo.equals(userData.photo) : userData.photo != null) return false;
-      return groups != null ? groups.equals(userData.groups) : userData.groups == null;
-    }
+    if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
+    if (surname != null ? !surname.equals(userData.surname) : userData.surname != null) return false;
+    if (job != null ? !job.equals(userData.job) : userData.job != null) return false;
+    if (email != null ? !email.equals(userData.email) : userData.email != null) return false;
+    if (mobilePhone != null ? !mobilePhone.equals(userData.mobilePhone) : userData.mobilePhone != null) return false;
+    if (photo != null ? !photo.equals(userData.photo) : userData.photo != null) return false;
+    return groups != null ? groups.equals(userData.groups) : userData.groups == null;
+  }
 
-    @Override
-    public int hashCode() {
-      int result = name != null ? name.hashCode() : 0;
-      result = 31 * result + (surname != null ? surname.hashCode() : 0);
-      result = 31 * result + (job != null ? job.hashCode() : 0);
-      result = 31 * result + (email != null ? email.hashCode() : 0);
-      result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
-      result = 31 * result + (photo != null ? photo.hashCode() : 0);
-      result = 31 * result + (groups != null ? groups.hashCode() : 0);
-      return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = name != null ? name.hashCode() : 0;
+    result = 31 * result + (surname != null ? surname.hashCode() : 0);
+    result = 31 * result + (job != null ? job.hashCode() : 0);
+    result = 31 * result + (email != null ? email.hashCode() : 0);
+    result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
+    result = 31 * result + (photo != null ? photo.hashCode() : 0);
+    result = 31 * result + (groups != null ? groups.hashCode() : 0);
+    return result;
+  }
 
-    @Override
+  @Override
   public String toString() {
     return "UserData{" +
             "id='" + id + '\'' +
@@ -304,4 +304,4 @@ import java.util.Set;
             '}';
   }
 
-  }
+}
