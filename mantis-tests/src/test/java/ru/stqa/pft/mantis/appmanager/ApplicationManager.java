@@ -21,6 +21,10 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
+  private DbHelper dbHelper;
+  private SessionHelper sessionHelper;
+  private NavigationHelper navigationHelper;
+  private UserHelper userHelper;
 
 
   public ApplicationManager(String browser) {
@@ -33,15 +37,16 @@ public class ApplicationManager {
 
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    dbHelper = new DbHelper();
   }
 
   public void stop() {
-    if (wd != null){
+    if (wd != null) {
       wd.quit();
     }
   }
 
-  public HttpSession newSession(){
+  public HttpSession newSession() {
     return new HttpSession(this);
   }
 
@@ -57,28 +62,53 @@ public class ApplicationManager {
   }
 
   public JamesHelper james() {
-    if (jamesHelper == null){
+    if (jamesHelper == null) {
       jamesHelper = new JamesHelper(this);
     }
     return jamesHelper;
   }
 
   public FtpHelper ftp() {
-    if (ftp == null){
+    if (ftp == null) {
       ftp = new FtpHelper(this);
     }
-      return ftp;
+    return ftp;
   }
 
-  public MailHelper mail(){
-    if (mailHelper == null){
+  public MailHelper mail() {
+    if (mailHelper == null) {
       mailHelper = new MailHelper(this);
     }
     return mailHelper;
   }
 
+  public DbHelper db() {
+    return dbHelper;
+  }
+
+  public SessionHelper sessionHelper() {
+    if (sessionHelper == null) {
+      sessionHelper = new SessionHelper(this);
+    }
+    return sessionHelper;
+  }
+
+  public NavigationHelper goTo() {
+    if (navigationHelper == null) {
+      navigationHelper = new NavigationHelper(this);
+    }
+    return navigationHelper;
+  }
+
+  public UserHelper userHelper() {
+    if (userHelper == null) {
+      userHelper = new UserHelper(this);
+    }
+    return userHelper;
+  }
+
   public WebDriver getDriver() {
-    if (wd == null){
+    if (wd == null) {
       if (browser.equals(BrowserType.FIREFOX)) {
         wd = new FirefoxDriver();
       } else if (browser.equals(BrowserType.CHROME)) {
@@ -92,6 +122,8 @@ public class ApplicationManager {
     }
     return wd;
   }
+
+
 }
 
 
