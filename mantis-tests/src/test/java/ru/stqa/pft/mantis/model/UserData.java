@@ -13,10 +13,10 @@ public class UserData {
   @Column(name = "id")
   private int id = Integer.MAX_VALUE;
 
-  @Column (name = "username")
+  @Column(name = "username")
   private String username;
 
-  @Column (name = "email")
+  @Column(name = "email")
   private String email;
 
   public int getId() {
