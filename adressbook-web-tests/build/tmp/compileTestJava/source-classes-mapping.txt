@@ -1,0 +1,51 @@
+ru/stqa/pft/adressbook/tests/UserDeletionTests.java
+ ru.stqa.pft.adressbook.tests.UserDeletionTests
+ru/stqa/pft/adressbook/appmanager/GroupHelper.java
+ ru.stqa.pft.adressbook.appmanager.GroupHelper
+ru/stqa/pft/adressbook/appmanager/ContactHelper.java
+ ru.stqa.pft.adressbook.appmanager.ContactHelper
+ru/stqa/pft/adressbook/model/Groups.java
+ ru.stqa.pft.adressbook.model.Groups
+ru/stqa/pft/adressbook/model/UserData.java
+ ru.stqa.pft.adressbook.model.UserData
+ru/stqa/pft/adressbook/appmanager/SessionHelper.java
+ ru.stqa.pft.adressbook.appmanager.SessionHelper
+ru/stqa/pft/adressbook/tests/HbConnectionTest.java
+ ru.stqa.pft.adressbook.tests.HbConnectionTest
+ru/stqa/pft/adressbook/tests/GroupCreationTests.java
+ ru.stqa.pft.adressbook.tests.GroupCreationTests
+ru/stqa/pft/adressbook/model/Users.java
+ ru.stqa.pft.adressbook.model.Users
+ru/stqa/pft/adressbook/tests/TestBase.java
+ ru.stqa.pft.adressbook.tests.TestBase
+ru/stqa/pft/adressbook/tests/UserModificationTests.java
+ ru.stqa.pft.adressbook.tests.UserModificationTests
+ru/stqa/pft/adressbook/tests/UserPhoneTests.java
+ ru.stqa.pft.adressbook.tests.UserPhoneTests
+ru/stqa/pft/adressbook/tests/UserToGroupTest.java
+ ru.stqa.pft.adressbook.tests.UserToGroupTest
+ru/stqa/pft/adressbook/generators/GroupDataGenerator.java
+ ru.stqa.pft.adressbook.generators.GroupDataGenerator
+ru/stqa/pft/adressbook/tests/DbConnectionTest.java
+ ru.stqa.pft.adressbook.tests.DbConnectionTest
+ru/stqa/pft/adressbook/tests/GroupDeletionTests.java
+ ru.stqa.pft.adressbook.tests.GroupDeletionTests
+ru/stqa/pft/adressbook/appmanager/ApplicationManager.java
+ ru.stqa.pft.adressbook.appmanager.ApplicationManager
+ru/stqa/pft/adressbook/tests/RemoveUserFromGroup.java
+ ru.stqa.pft.adressbook.tests.RemoveUserFromGroup
+ru/stqa/pft/adressbook/appmanager/NavigationHelper.java
+ ru.stqa.pft.adressbook.appmanager.NavigationHelper
+ru/stqa/pft/adressbook/tests/UserCreationTests.java
+ ru.stqa.pft.adressbook.tests.UserCreationTests
+ ru.stqa.pft.adressbook.tests.UserCreationTests$1
+ru/stqa/pft/adressbook/appmanager/DbHelper.java
+ ru.stqa.pft.adressbook.appmanager.DbHelper
+ru/stqa/pft/adressbook/model/GroupData.java
+ ru.stqa.pft.adressbook.model.GroupData
+ru/stqa/pft/adressbook/generators/UserDataGenerator.java
+ ru.stqa.pft.adressbook.generators.UserDataGenerator
+ru/stqa/pft/adressbook/appmanager/HelperBase.java
+ ru.stqa.pft.adressbook.appmanager.HelperBase
+ru/stqa/pft/adressbook/tests/GroupModificationTests.java
+ ru.stqa.pft.adressbook.tests.GroupModificationTests

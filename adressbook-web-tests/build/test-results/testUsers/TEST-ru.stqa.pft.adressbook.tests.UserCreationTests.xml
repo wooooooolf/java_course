@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.adressbook.tests.UserCreationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-04-14T07:18:53" hostname="R780" time="23.796">
+  <properties/>
+  <testcase name="testUserCreation[0](UserData{id='2147483647', name='Andrey 0', surname='Rublev 0'})" classname="ru.stqa.pft.adressbook.tests.UserCreationTests" time="23.796"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
